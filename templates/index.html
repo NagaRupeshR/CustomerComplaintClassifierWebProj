@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+<body>
+    <h1>Customer Complaint Classifier</h1>
+    <h2>{{ complaint }}</h2>
+    {% for cp in predicted %}
+        {% set percent = cp[1] * 100 %}
+
+        {% if percent < 30 %}
+            {% set cls = "low" %}
+        {% elif percent < 60 %}
+            {% set cls = "mid" %}
+        {% else %}
+            {% set cls = "high" %}
+        {% endif %}
+
+        <p><b>{{ cp[0] }}</b> — {{ percent|round(1) }}%</p>
+        <div class="bar-container">
+            <!-- width is fine as inline style; background comes from class -->
+            <div class="bar {{ cls }}" style="width: {{ percent }}%;">
+                {{ percent|round(1) }}%
+            </div>
+        </div>
+    {% endfor %}
+
+    <form action="{{ url_for('customerclassify') }}" method="POST">
+        <textarea name="complaint" rows="5" cols="40" placeholder="Type your complaint here"></textarea><br>
+        <input type="submit" value="Classify">
+    </form>
+
+    <form action="{{ url_for('misclassification') }}" method="POST">
+        <select name="expectedCls" required>
+            <option value="mortgages_and_loans">mortgages_and_loans</option>
+            <option value="retail_banking">retail_banking</option>
+            <option value="credit_card">credit_card</option>
+            <option value="credit_reporting">credit_reporting</option>
+            <option value="debt_collection">debt_collection</option>
+            <option value="upi_transaction_failures">upi_transaction_failures</option>
+        </select>
+        <input type="submit" value="misclassified">
+    </form>
+
+</body>
+</html>

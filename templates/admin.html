@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Admin — Complaint Classifier</title>
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+
+  <h2>Customer Complaint Classifier — Admin</h2>
+  <div><p>Admin view: manage models, users, and review classification results.</p></div>
+  
+
+  <!-- Admin Controls -->
+  <section>
+    <h3>Admin Controls</h3>
+
+    
+    <form action="{{ url_for('ignoreMisCls') }}" method="POST">
+      <label>
+        <input type="checkbox" name="ignore" value="1">Ignore Misclassifications
+      </label>
+      <input type="submit" value="Ignore Misclassifications">
+    </form>
+    
+    <p>Note : Ignoring misclassification might not improve model feature over time</p>
+
+    <p>Misclassification threshold : {{threshold}}</p>
+    
+    <form action="{{ url_for('fetch_threshold') }}" method="POST">
+      <input type="number" name="threshold">
+      <input type="submit" value="set threshold">
+    </form>
+
+    <p>Export misclassifications csv</p>
+    <form action="{{ url_for('exportMisCls') }}" method="POST">
+      <input type="submit" value="Export CSV">
+    </form>
+    
+  </section>
+
+  <form action="{{ url_for('setClass') }}" method="POST">
+    <h3>Set Class</h3>
+    <p>Enter the classes in a single space seperated format like cls1 cls2 cls3</p>
+    <textarea id="cls" name="cls">{{ cls or '' }}</textarea><br><br>
+    <button type="submit">Set New Set if Class</button>
+  </form>
+
+  <!-- Complaint Input -->
+  <form action="{{ url_for('classify') }}" method="POST">
+    <h3>Complaint Input</h3>
+    <label for="complaint">Complaint</label><br>
+    <textarea id="complaint" name="complaint">{{ complaint or '' }}</textarea><br><br>
+    <button type="submit">Classify</button>
+  </form>
+  
+  {% if complaint %}
+    <p><strong>Input:</strong></p>
+    <p>{{ complaint }}</p>
+      <section aria-label="Predicted classes">
+    <h3>Predicted classes</h3>
+    <p>Sorted high → low</p>
+    <div>
+
+      {% for cp in predicted %}
+      <p>{{ cp[0] }} : {{ cp[1] }}</p>
+      {% endfor %}
+
+    </div>
+  </section>
+  {% endif %}
+
+  <form action="{{ url_for('bulk') }}" method="GET">
+    <button type="submit">Bulk</button><p style="display: inline; padding-left:10px;">Upload a CSV file and get inntant classifications</p>
+  </form>
+  <form action="{{ url_for('action') }}" method="POST">
+    <button type="submit">FORCE TRAINING</button><p style="display: inline; padding-left:10px;">Restart training with new misclassifications</p>
+  </form>
+  <!-- Model -->
+  <div><p>Admin features: export, manage users, retrain</p></div>
+  
+
+</body>
+<script src="/js/admin.js"></script>
+</html>

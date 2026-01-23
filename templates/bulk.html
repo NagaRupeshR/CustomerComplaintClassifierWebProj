@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bulk classifier</title>
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+<body>
+        
+    {% if isgtThres %}
+        <h2 style="color:rgb(244, 92, 92);">No of Misclassifications is greater than expected TAKE ACTION ( rollback/promote )</h2>
+        <form action="{{ url_for('action') }}" method="POST">
+            <input type="submit" value="ACTION">
+        </form>
+    {% else %}
+
+    <h1>Bulk Classifier - upload branch collected csv files</h1>
+    <h2>Upload csv File</h2>
+    <form action="{{ url_for('bulk') }}" method="POST" enctype="multipart/form-data">
+        <select name="download_mode" required>
+            <option value="with_download">With Download</option>
+            <option value="without_download">Without Download</option>
+        </select>
+        <label for="Select CSV File"></label>
+        <input type="file" name="file" accept=".csv" required>
+        <button type="submit">Upload csv</button>
+    </form>
+    {% endif %}
+    <div>{{ html_fragment|safe }}</div>
+</body>
+</html>

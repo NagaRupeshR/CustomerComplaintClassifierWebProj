@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Model Version Dashboard</title>
+  <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body>
+
+  <h2>Model Versions</h2>
+  <table>
+    <thead>
+      <tr>
+        {% for head_val in table_head %}
+          <th>{{ head_val }}</th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in table_data %}
+      <tr>
+        {% for data in row %}
+          <td>{{ data }}</td>
+        {% endfor %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <h2>Model Version Summary Metrics Graph</h2>
+  <div>{{ graph_html|safe }}</div>
+
+  <h3>Select the required model version to get deep metrics</h3>
+  <form action="{{ url_for('getModelData') }}" method="POST">
+    <select name="model_version">
+      {% for version_name in version_names %}
+       <option value="{{ version_name }}">{{ version_name }}</option>
+      {% endfor %}
+    </select>
+    <input type="submit" placeholder="GET Model Data">
+  </form>
+</body>
+</html>

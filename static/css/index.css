@@ -1,0 +1,152 @@
+/* ---------- COLOR VARIABLES ---------- */
+:root{
+  --bg-main: rgb(216, 225, 255);
+  --accent: rgb(255, 196, 130);
+  --dark: rgb(49, 47, 47);
+  --muted: rgba(49, 47, 47, 0.7);
+  --white: #ffffff;
+
+  --radius: 8px;
+  --bar-height: 30px;
+}
+
+/* ---------- BASE RESET ---------- */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 20px;
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  background: var(--bg-main);
+  color: var(--dark);
+  line-height: 1.5;
+}
+
+/* ---------- CONTAINER WIDTH ---------- */
+body > * {
+  max-width: 860px;
+  margin: 10px auto;
+}
+
+/* ---------- HEADINGS ---------- */
+h1 {
+  font-size: 28px;
+  margin-bottom: 6px;
+}
+
+h2 {
+  font-size: 16px;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+p {
+  margin: 6px 0;
+  color: var(--muted);
+}
+
+/* ---------- BAR TRACK ---------- */
+.bar-container {
+  width: 100%;
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 4px;
+  margin: 8px 0 16px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+/* ---------- BAR BASE ---------- */
+.bar {
+  height: var(--bar-height);
+  min-width: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 10px;
+  border-radius: calc(var(--radius) - 2px);
+  font-weight: 600;
+  font-size: 13px;
+  transition: width 0.4s ease;
+  color: var(--white);
+}
+
+/* ---------- BAR STATES ---------- */
+.bar.low {
+  background: rgb(49, 47, 47);
+}
+
+.bar.mid {
+  background: rgb(255, 196, 130);
+  color: rgb(49, 47, 47);
+}
+
+.bar.high {
+  background: linear-gradient(
+    90deg,
+    rgb(216, 225, 255),
+    rgb(130, 160, 255)
+  );
+  color: rgb(49, 47, 47);
+}
+
+/* ---------- TEXTAREA ---------- */
+textarea[name="complaint"] {
+  width: 100%;
+  min-height: 110px;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(0,0,0,0.15);
+  font-size: 14px;
+  resize: vertical;
+  outline: none;
+}
+
+textarea:focus {
+  border-color: rgb(130, 160, 255);
+}
+
+/* ---------- SELECT ---------- */
+select[name="expectedCls"] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(0,0,0,0.15);
+  font-size: 14px;
+  background: var(--white);
+  color: var(--dark);
+  cursor: pointer;
+}
+
+/* ---------- BUTTON ---------- */
+input[type="submit"] {
+  margin-top: 12px;
+  padding: 10px 18px;
+  border-radius: 6px;
+  border: none;
+  background: rgb(255, 196, 130);
+  color: rgb(49, 47, 47);
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+input[type="submit"]:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* ---------- MOBILE ---------- */
+@media (max-width: 640px) {
+  h1 { font-size: 22px; }
+  body { padding: 12px; }
+  textarea, input[type="submit"] {
+    width: 100%;
+  }
+}
+
+option,select{
+  background-color: rgb(216, 225, 255)!important;
+}

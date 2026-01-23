@@ -1,0 +1,101 @@
+:root {
+  --bg: rgb(216,225,255);
+  --accent: rgb(255,196,130);
+  --dark: rgb(49,47,47);
+  --muted: rgba(49,47,47,0.7);
+  --white: #ffffff;
+  --radius: 8px;
+}
+
+/* base */
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 20px;
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--dark);
+}
+
+body > * {
+  max-width: 1000px;
+  margin: 14px auto;
+}
+
+/* headings */
+h2, h3 {
+  margin-bottom: 6px;
+}
+
+p {
+  color: var(--muted);
+}
+
+/* table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--white);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+thead th {
+  background: rgb(216,225,255);
+  padding: 10px;
+  font-weight: 700;
+  text-align: center;
+}
+
+tbody td {
+  padding: 8px;
+  text-align: center;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+tbody tr:hover {
+  background: rgba(216,225,255,0.4);
+}
+
+/* graph container */
+div {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* form */
+form {
+  background: var(--white);
+  padding: 16px;
+  border-radius: var(--radius);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+/* select */
+select {
+  width: 100%;
+  padding: 12px;
+  margin-top: 6px;
+  border-radius: 8px;
+  border: 1.5px solid rgba(49,47,47,0.25);
+  font-weight: 600;
+}
+
+/* button */
+input[type="submit"] {
+  margin-top: 10px;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  background: var(--accent);
+  color: var(--dark);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}

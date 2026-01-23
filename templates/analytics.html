@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>analysis</title>
+    <link rel="stylesheet" href="/css/analytics.css">
+</head>
+<body>
+    <p>{{ model_version }}</p>
+
+    <h2>Mode level Metrics</h2>
+    <p> Accuacy : {{ model_level_metrics[0][0] }}</p>
+    <table>
+        <thead>
+            <tr>
+            <th>macro/avg</th>
+            {% for mname in model_level_metrics[1] %}
+                <th>{{ mname }}</th>
+            {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+            <td>macro</td>
+            {% for data in model_level_metrics[2] %}
+                <td>{{ data }}</td>
+            {% endfor %}
+            </tr>
+            <tr>
+            <td>avg</td>
+            {% for data in model_level_metrics[3] %}
+                <td>{{ data }}</td>
+            {% endfor %}
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Class Level Metrics</h2>
+    <table>
+        <thead>
+            {% for mname in class_level_metrics_head %}
+                <th>{{ mname }}</th>
+            {% endfor %}
+        </thead>
+        <tbody>
+            {% for data in class_level_metrics %}
+                <tr>
+                    {% for val in data %}
+                        <td>{{ val }}</td>
+                    {% endfor %}
+                </tr>                
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Confusion Metrics</h2>
+    <table>
+        <thead>
+            <tr>
+            {% for cname in class_names %}
+                <th>{{ cname }}</th>
+            {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in confusion_matrix %}
+                <tr>
+                {% for data in row %}
+                    <td>{{ data }}</td>
+                {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+</html>

@@ -1,0 +1,212 @@
+<!-- retrain
+compare improvements - set Status
+user determines - promote/rollback -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/threshold.css">
+</head>
+<body>
+    
+<section>
+    <h3>Model</h3>
+
+    <h4>Previously Best Model Metrics</h4>
+    <p>Confusion matrix</p>
+    <table>
+        <thead>
+            <tr>
+                {% for cname in class_names %}
+                    <th>{{ cname }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+
+        <tbody>
+        {% for row in best_cm %}
+            <tr>
+                {% for item in row %}
+                    <td>{{ item }}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+    <p>Classification Report</p>
+
+    {% if 'accuracy' in best_cr %}
+    <p>Class wise Classification Report</p>
+    <table>
+        <thead>
+            <tr>
+                <th>class</th><th>f1_score</th><th>precision</th>
+                <th>recall</th><th>support</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for cname in class_names %}
+            <tr>
+                <td>{{ cname }}</td>
+                <td>{{ best_cr[cname]['f1-score'] }}</td>
+                <td>{{ best_cr[cname]['precision'] }}</td>
+                <td>{{ best_cr[cname]['recall'] }}</td>
+                <td>{{ best_cr[cname]['support'] }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <p>Accuracy : {{ best_cr['accuracy'] }}</p>
+    <p>macro average classification report</p>
+    <table>
+        <thead>
+            <tr>
+                <th>f1_score</th>
+                <th>precision</th>
+                <th>recall</th>
+                <th>support</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+            <td>{{ best_cr['macro avg']['f1_score'] }}</td>
+            <td>{{ best_cr['macro avg']['precision'] }}</td>
+            <td>{{ best_cr['macro avg']['recall'] }}</td>
+            <td>{{ best_cr['macro avg']['support'] }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <p>weighted average classification report</p>
+    <table>
+        <thead>
+            <tr>
+                <th>f1_score</th>
+                <th>precision</th>
+                <th>recall</th>
+                <th>support</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+            <td>{{ best_cr['weighted avg']['f1_score'] }}</td>
+            <td>{{ best_cr['weighted avg']['precision'] }}</td>
+            <td>{{ best_cr['weighted avg']['recall'] }}</td>
+            <td>{{ best_cr['macro avg']['support'] }}</td>
+            </tr>
+        </tbody>
+    </table>
+    {% endif %}
+
+    {% if 'accuracy' in cr %}
+        <h4>Current Model Metrics</h4>
+        <p>Confusion matrix</p>
+            <table>
+                <thead>
+                    <tr>
+                        {% for cname in class_names %}
+                            <th>{{ cname }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+
+                <tbody>
+                {% for row in cm %}
+                    <tr>
+                        {% for item in row %}
+                            <td>{{ item }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        <p>Classification Report</p>
+
+        <p>Class wise Classification Report</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>class</th><th>f1_score</th><th>precision</th>
+                    <th>recall</th><th>support</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for cname in class_names %}
+                <tr>
+                    <td>{{ cname }}</td>
+                    <td>{{ cr[cname]['f1-score'] }}</td>
+                    <td>{{ cr[cname]['precision'] }}</td>
+                    <td>{{ cr[cname]['recall'] }}</td>
+                    <td>{{ cr[cname]['support'] }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <p>Accuracy : {{ cr['accuracy'] }}</p>
+        <p>macro average classification report</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>f1_score</th>
+                    <th>precision</th>
+                    <th>recall</th>
+                    <th>support</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <td>{{ cr['macro avg']['f1-score'] }}</td>
+                <td>{{ cr['macro avg']['precision'] }}</td>
+                <td>{{ cr['macro avg']['recall'] }}</td>
+                <td>{{ cr['macro avg']['support'] }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>weighted average classification report</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>f1_score</th>
+                    <th>precision</th>
+                    <th>recall</th>
+                    <th>support</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <td>{{ cr['weighted avg']['f1-score'] }}</td>
+                <td>{{ cr['weighted avg']['precision'] }}</td>
+                <td>{{ cr['weighted avg']['recall'] }}</td>
+                <td>{{ cr['weighted avg']['support'] }}</td>
+                </tr>
+            </tbody>
+        </table>
+        {% if 'accuracy' in cr and 'accuracy' in best_cr and cr['accuracy']>=best_cr['accuracy'] %}
+            <p>Status: <strong>Healthy</strong></p>
+        {% else %}
+                <p>Status: <strong>Analyse metrics before promote</strong></p>
+        {% endif %}
+    {% endif %}
+    
+</section>
+<form action="{{ url_for('trainNewModel') }}" method="POST">
+    <input type="submit" value="train_new_model">
+</form>
+<form action="{{ url_for('promote') }}" method="POST">
+    <input type="text" name="model_version_id" placeholder="Enter a unique model version id" required>
+    <input type="text" name="notes" placeholder="Enter your short notes here">
+    <input type="submit" value="Promote">
+</form>
+<form action="{{ url_for('rollback') }}" method="POST">
+    <input type="submit" value="Rollback">
+</form>
+<form action="{{ url_for('analytics') }}" method="GET">
+    <input type="submit" value="Visualize Analytics">
+</form>
+
+</body>
+</html>
+

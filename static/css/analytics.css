@@ -1,0 +1,79 @@
+:root {
+  --bg: rgb(216,225,255);
+  --accent: rgb(255,196,130);
+  --dark: rgb(49,47,47);
+  --muted: rgba(49,47,47,0.7);
+  --white: #ffffff;
+  --radius: 8px;
+}
+
+/* base */
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 20px;
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--dark);
+}
+
+body > * {
+  max-width: 1100px;
+  margin: 14px auto;
+}
+
+/* headings */
+h2 {
+  margin-bottom: 6px;
+}
+
+p {
+  font-weight: 600;
+  color: var(--muted);
+}
+
+/* tables */
+table {
+  width: 100%;
+  margin-bottom: 20px;
+  border-collapse: collapse;
+  background: var(--white);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+thead th {
+  background: rgb(216,225,255);
+  padding: 10px;
+  font-weight: 700;
+  text-align: center;
+}
+
+tbody td {
+  padding: 8px;
+  text-align: center;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+tbody tr:nth-child(even) {
+  background: rgba(216,225,255,0.35);
+}
+
+/* model version highlight */
+p:first-of-type {
+  background: var(--accent);
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 6px;
+  color: var(--dark);
+  font-weight: 700;
+}
+
+/* responsive */
+@media (max-width: 700px) {
+  table {
+    font-size: 12px;
+  }
+}

@@ -1,0 +1,140 @@
+/* ---------- VARIABLES ---------- */
+:root{
+  --bg-main: rgb(216, 225, 255);
+  --accent: rgb(255, 196, 130);
+  --dark: rgb(49, 47, 47);
+  --muted: rgba(49, 47, 47, 0.7);
+  --white: #ffffff;
+
+  --radius: 8px;
+}
+
+/* ---------- RESET ---------- */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 20px;
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  background: var(--bg-main);
+  color: var(--dark);
+  line-height: 1.5;
+}
+
+/* ---------- LAYOUT ---------- */
+body > * {
+  max-width: 900px;
+  margin: 12px auto;
+}
+
+/* ---------- HEADINGS ---------- */
+h2 {
+  margin-bottom: 4px;
+  font-size: 26px;
+}
+
+h3 {
+  margin-top: 0;
+  font-size: 18px;
+}
+
+p {
+  color: var(--muted);
+  margin: 6px 0;
+}
+
+/* ---------- SECTIONS (CARDS) ---------- */
+section,
+form {
+  background: var(--white);
+  padding: 16px 18px;
+  border-radius: var(--radius);
+  margin-bottom: 16px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+/* ---------- LABELS ---------- */
+label {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* ---------- INPUTS ---------- */
+textarea,
+input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 6px;
+  border-radius: 6px;
+  border: 1px solid rgba(0,0,0,0.15);
+  font-size: 14px;
+  resize: vertical;
+}
+
+textarea {
+  min-height: 120px;
+}
+
+textarea:focus,
+input[type="number"]:focus {
+  outline: none;
+  border-color: rgb(130,160,255);
+}
+
+/* ---------- CHECKBOX ---------- */
+input[type="checkbox"] {
+  margin-right: 6px;
+  transform: scale(1.1);
+}
+
+/* ---------- BUTTONS ---------- */
+button,
+input[type="submit"] {
+  margin-top: 10px;
+  padding: 10px 18px;
+  border-radius: 6px;
+  border: none;
+  background: var(--accent);
+  color: var(--dark);
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+button:hover,
+input[type="submit"]:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* ---------- DANGER / FORCE ACTION ---------- */
+form[action*="action"] button {
+  background: rgb(255, 160, 160);
+}
+
+/* ---------- PREDICTED LIST ---------- */
+section[aria-label="Predicted classes"] div p {
+  background: rgb(216,225,255);
+  padding: 8px 12px;
+  border-radius: 6px;
+  margin: 6px 0;
+  font-weight: 600;
+}
+
+/* ---------- MOBILE ---------- */
+@media (max-width: 640px) {
+  body {
+    padding: 12px;
+  }
+
+  h2 {
+    font-size: 22px;
+  }
+
+  button,
+  input[type="submit"] {
+    width: 100%;
+  }
+}
